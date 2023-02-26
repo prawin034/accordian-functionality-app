@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from 'react';
+import { data } from './components/data';
+import Question from './components/question';
 function App() {
+  const [questions, setquestions] = useState(data);
+
+  const deletehandler = () => {
+    setquestions([]);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="accordian">
+        <h2 className="accordian_heading">
+          {questions.length} QUESTIONS AND ANSWERS
+        </h2>
+        {questions.map((question) => {
+          return <Question key={question.id} {...question} />;
+        })}
+        <button className="accordian_btns" onClick={deletehandler}>
+          delete all
+        </button>
+      </section>
     </div>
   );
 }
